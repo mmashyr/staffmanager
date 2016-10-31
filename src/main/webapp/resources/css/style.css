@@ -1,0 +1,78 @@
+table a:link {
+    color: #666;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+table a:visited {
+    color: #999999;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+table a:active,
+table a:hover {
+    color: #0f0208;
+    text-decoration: underline;
+}
+
+table {
+    font-family: sans-serif;
+    color: #666;
+    font-size: 12px;
+    text-shadow: 1px 1px 0px #fff;
+    background: #eaebec;
+    margin: 20px;
+    border: #ccc 1px solid;
+}
+
+table th {
+    padding: 21px 25px 22px 25px;
+    border-top: 1px solid #fafafa;
+    border-bottom: 1px solid #e0e0e0;
+
+    background: #ededed;
+
+}
+
+table tr {
+    text-align: center;
+    padding-left: 20px;
+}
+
+table td {
+    padding: 18px;
+    border-top: 1px solid #ffffff;
+    border-bottom: 1px solid #e0e0e0;
+    border-left: 1px solid #e0e0e0;
+
+    background: #fafafa;
+}
+
+body {
+    color: black;
+}
+
+label {
+    width: 200px;
+    float: left;
+}
+
+.error {
+    color: crimson;
+}
+
+#description {
+    width: 500px;
+    max-width: 500px;
+    overflow-x: auto;
+    word-wrap: break-word;
+}
+
+a.helo:link, a.helo:visited, a.helo:hover {
+    display: block;
+    width: auto;
+    text-align: center;
+    color: blue;
+    text-decoration: underline;
+}
