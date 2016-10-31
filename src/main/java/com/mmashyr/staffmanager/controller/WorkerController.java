@@ -42,7 +42,6 @@ public class WorkerController {
         this.taskService = taskService;
     }
 
-
     @RequestMapping(method = RequestMethod.GET)
     public String getAllWorkers(Model model) {
         model.addAttribute("workersList", workerService.getAll());
@@ -51,13 +50,11 @@ public class WorkerController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public String removeWorker(@PathVariable("id") long id) {
-
         if (workerService.getById(id) == null) {
             return "redirect:" + ROOT_WORKER_CONTROLLER_URL;
         }
-
         workerService.delete(id);
-
+        
         return "redirect:" + ROOT_WORKER_CONTROLLER_URL;
     }
 
@@ -103,7 +100,6 @@ public class WorkerController {
 
     @RequestMapping(value = "/{id}/tasks", method = RequestMethod.GET)
     public String getWorker(@PathVariable("id") long id, Model model) {
-
         Worker worker = workerService.getById(id);
         if (worker == null) {
             return "redirect:" + ROOT_WORKER_CONTROLLER_URL;
