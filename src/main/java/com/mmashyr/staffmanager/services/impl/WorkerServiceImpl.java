@@ -19,23 +19,23 @@ import java.util.List;
 public class WorkerServiceImpl implements WorkerService {
 
     @Autowired
-    @Qualifier(value = "hibernateWorkerDao")
+    @Qualifier(value = "jpaWorkerDao")
     private WorkerDao dao;
 
     public WorkerServiceImpl() {
     }
 
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true, propagation=Propagation.SUPPORTS)
     public List<Worker> getAll() {
         return dao.getAll();
     }
 
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true, propagation=Propagation.SUPPORTS)
     public Worker getById(long id) {
         return dao.getById(id);
     }
 
-    @Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+    @Transactional(rollbackFor = Exception.class)
     public void add(Worker entity) {
         dao.add(entity);
     }

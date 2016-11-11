@@ -7,10 +7,10 @@ import org.springframework.stereotype.Repository;
 /**
  * Created by Mark
  */
-@Repository(value = "hibernateTaskDao")
-public class HibernateTaskDao extends HibernateAbstractDao<Task> implements TaskDao {
+@Repository(value = "jpaTaskDao")
+public class JPATaskDao extends JPAAbstractDao<Task> implements TaskDao {
 
-    public HibernateTaskDao() {
+    public JPATaskDao() {
     }
 
 }

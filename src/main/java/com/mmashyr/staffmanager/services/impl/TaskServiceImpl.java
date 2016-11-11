@@ -18,33 +18,33 @@ import java.util.List;
 public class TaskServiceImpl implements TaskService {
 
     @Autowired
-    @Qualifier(value = "hibernateTaskDao")
+    @Qualifier(value = "jpaTaskDao")
     private TaskDao dao;
 
     public TaskServiceImpl() {
     }
 
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true, propagation=Propagation.SUPPORTS)
     public List<Task> getAll() {
         return dao.getAll();
     }
 
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true, propagation=Propagation.SUPPORTS)
     public Task getById(long id) {
         return dao.getById(id);
     }
 
-    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public void add(Task entity) {
         dao.add(entity);
     }
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void update(Task entity) {
         dao.update(entity);
     }
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void delete(long id) {
         dao.delete(id);
     }

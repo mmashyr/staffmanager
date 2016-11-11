@@ -8,10 +8,10 @@ import org.springframework.stereotype.Repository;
  * Created by Mark
  */
 
-@Repository(value = "hibernateWorkerDao")
-public class HibernateWorkerDao extends HibernateAbstractDao<Worker> implements WorkerDao {
+@Repository(value = "jpaWorkerDao")
+public class JPAWorkerDao extends JPAAbstractDao<Worker> implements WorkerDao {
 
-    public HibernateWorkerDao() {
+    public JPAWorkerDao() {
     }
 
 }

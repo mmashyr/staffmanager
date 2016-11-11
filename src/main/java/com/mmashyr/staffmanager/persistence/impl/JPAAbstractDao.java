@@ -17,14 +17,14 @@ import java.util.List;
  */
 
 @Repository
-public abstract class HibernateAbstractDao<T extends BaseModel> {
+public abstract class JPAAbstractDao<T extends BaseModel> {
 
 
     private EntityManager em;
     private Class<T> clazz;
 
     @SuppressWarnings("unchecked")
-    public HibernateAbstractDao() {
+    public JPAAbstractDao() {
         this.clazz = (Class) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
     }
 
