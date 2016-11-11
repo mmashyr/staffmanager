@@ -69,6 +69,10 @@ label {
     word-wrap: break-word;
 }
 
+#logout{
+    float:right;
+}
+
 a.helo:link, a.helo:visited, a.helo:hover {
     display: block;
     width: auto;
