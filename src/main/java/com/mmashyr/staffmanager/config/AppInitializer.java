@@ -1,6 +1,8 @@
 package com.mmashyr.staffmanager.config;
 
+import org.springframework.core.annotation.Order;
 import org.springframework.web.WebApplicationInitializer;
+import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
@@ -15,15 +17,17 @@ import java.util.EnumSet;
 /**
  * Created by Mark
  */
-
+@Order(1)
 public class AppInitializer implements WebApplicationInitializer {
 
-    EnumSet<DispatcherType> dispatcherTypes = EnumSet.of(DispatcherType.REQUEST, DispatcherType.FORWARD);
 
     public void onStartup(ServletContext container) throws ServletException {
 
         AnnotationConfigWebApplicationContext ctx = new AnnotationConfigWebApplicationContext();
         ctx.register(AppConfig.class);
+        ctx.register(AppSecurityConfig.class);
+        container.addListener(new ContextLoaderListener(ctx));
+
         ctx.setServletContext(container);
 
         ServletRegistration.Dynamic servlet = container.addServlet("dispatcher", new DispatcherServlet(ctx));
@@ -38,12 +42,12 @@ public class AppInitializer implements WebApplicationInitializer {
 
     private void registerCharsetEncodingFilter(ServletContext context) {
         context.addFilter("characterEncodingFilter", new CharacterEncodingFilter("UTF-8", true, true))
-                .addMappingForUrlPatterns(dispatcherTypes, true, "/*");
+                .addMappingForUrlPatterns(null, false, "/*");
     }
 
     private void registerHiddenFieldFilter(ServletContext context) {
         context.addFilter("hiddenHttpMethodFilter", new HiddenHttpMethodFilter())
-                .addMappingForUrlPatterns(dispatcherTypes, true, "/*");
+                .addMappingForUrlPatterns(null, true, "/*");
     }
 
 
