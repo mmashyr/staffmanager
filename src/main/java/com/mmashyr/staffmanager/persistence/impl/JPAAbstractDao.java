@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -59,5 +60,9 @@ public abstract class JPAAbstractDao<T extends BaseModel> {
 
     public void delete(long id) {
         em.remove(em.find(clazz, id));
+    }
+
+    protected Query createQuery(String query){
+        return em.createQuery(query, clazz);
     }
 }
