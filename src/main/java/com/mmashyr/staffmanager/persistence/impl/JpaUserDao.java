@@ -9,7 +9,7 @@ import javax.persistence.Query;
 /**
  * Created by Mark
  */
-@Repository(value = "userDao")
+@Repository(value = "jpaUserDao")
 public class JpaUserDao extends JPAAbstractDao<User> implements UserDao {
 
 
@@ -19,7 +19,7 @@ public class JpaUserDao extends JPAAbstractDao<User> implements UserDao {
 
     @Override
     public User findByLogin(String login) {
-        Query query = createQuery("SELECT User u FROM User WHERE u.login = :login)");
+        Query query = createQuery("SELECT u FROM User u WHERE u.login = :login)");
         query.setParameter("login", login).setMaxResults(1);
 
         return (User) query.getSingleResult();
