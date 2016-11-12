@@ -31,15 +31,17 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.authenticationProvider(authenticationProvider());
     }
 
-//    protected void configure(HttpSecurity http) throws Exception {
-//        http
-//                .authorizeRequests()
-//                .anyRequest().authenticated()
-//                .and()
-//                .formLogin()
-//                .and()
-//                .httpBasic();
-//    }
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+                .authorizeRequests()
+                .antMatchers("/registration").permitAll()
+                .anyRequest().authenticated() // 7
+                .and()
+                .formLogin()
+                .loginPage("/login")
+                .permitAll(); // #5
+
+    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
