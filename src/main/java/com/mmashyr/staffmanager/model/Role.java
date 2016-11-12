@@ -1,8 +1,8 @@
 package com.mmashyr.staffmanager.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by Mark on 11.11.2016.
@@ -11,21 +11,22 @@ import javax.persistence.Table;
 @Table(name = "role")
 public class Role extends BaseModel {
 
-    @Column(name = "role", unique = true, nullable = false)
-    private String role = Roles.USER.getRole();
+    @Enumerated(EnumType.STRING)
+    private UserRoleType type;
 
-    public Role(){
+    public Role() {
         super();
     }
-    public Role(long id){
+
+    public Role(long id) {
         super(id);
     }
 
-    public String getRole() {
-        return role;
+    public UserRoleType getType() {
+        return type;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setRole(UserRoleType role) {
+        this.type = type;
     }
 }
