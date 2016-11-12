@@ -43,9 +43,9 @@ public class RegistrationController {
         if(result.hasErrors()){
             return "registration";
         }
-
+        System.out.println(user.getLogin() + "!!" + user.getPassword() + "!!" + user.getRoles().size());
         userService.add(user);
-
+        System.out.println("after saving");
         return "index";
     }
 
