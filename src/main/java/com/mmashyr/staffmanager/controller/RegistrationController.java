@@ -1,6 +1,8 @@
 package com.mmashyr.staffmanager.controller;
 
+import com.mmashyr.staffmanager.model.Role;
 import com.mmashyr.staffmanager.model.User;
+import com.mmashyr.staffmanager.model.UserRoleType;
 import com.mmashyr.staffmanager.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -24,7 +26,11 @@ public class RegistrationController {
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registrationForm(Model model){
-        model.addAttribute("user", new User());
+        User user = new User();
+        Role userRole = new Role();
+        userRole.setRole(UserRoleType.USER);
+        user.getRoles().add(userRole);
+        model.addAttribute("user", user);
 
         return "registration";
     }
