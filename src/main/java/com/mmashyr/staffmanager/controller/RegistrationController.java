@@ -32,9 +32,6 @@ public class RegistrationController {
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registrationForm(Model model){
         User user = new User();
-        Role userRole = new Role();
-        userRole.setRole(UserRoleType.USER);
-        user.getRoles().add(userRole);
         model.addAttribute("user", user);
 
         return "registration";
@@ -42,6 +39,9 @@ public class RegistrationController {
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String registrationForm(@Valid @ModelAttribute("user") User user, BindingResult result){
+        Role userRole = new Role();
+        userRole.setRole(UserRoleType.USER);
+        user.getRoles().add(userRole);
         System.out.println("Inside");
         if(result.hasErrors()){
             System.out.println("ERRORS : !!!!!!!!!!");
