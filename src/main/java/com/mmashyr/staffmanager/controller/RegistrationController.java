@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
+import javax.xml.bind.SchemaOutputResolver;
+import java.util.Arrays;
+import java.util.Collections;
 
 /**
  * Created by Mark on 12.11.2016.
@@ -41,7 +44,8 @@ public class RegistrationController {
     public String registrationForm(@Valid @ModelAttribute("user") User user, BindingResult result){
         System.out.println("Inside");
         if(result.hasErrors()){
-            System.out.println("Count "+ result.getFieldErrorCount());
+            System.out.println("ERRORS : !!!!!!!!!!");
+            result.getFieldErrors().stream().forEach(System.out::println);
             return "registration";
         }
         System.out.println(user.getLogin() + "!!" + user.getPassword() + "!!" + user.getRoles().size());
