@@ -39,8 +39,9 @@ public class RegistrationController {
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String registrationForm(@Valid @ModelAttribute("user") User user, BindingResult result){
-
+        System.out.println("Inside");
         if(result.hasErrors()){
+            System.out.println("Count "+ result.getFieldErrorCount());
             return "registration";
         }
         System.out.println(user.getLogin() + "!!" + user.getPassword() + "!!" + user.getRoles().size());
