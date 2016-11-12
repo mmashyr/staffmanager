@@ -19,13 +19,13 @@ public class User extends BaseModel {
     @NotEmpty
     @NotNull
     @Column(name = "login", unique = true)
-    @Size(min = 4, max = 12)
+ //   @Size(min = 4, max = 12)
     private String login;
 
     @NotEmpty
     @NotNull
     @Column(name = "password")
-    @Size(min = 6, max = 16)
+   // @Size(min = 6, max = 16)
     private String password;
 
  //   @NotEmpty
