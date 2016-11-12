@@ -5,6 +5,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,11 +19,13 @@ public class User extends BaseModel {
     @NotEmpty
     @NotNull
     @Column(name = "login", unique = true)
+    @Size(min = 4, max = 12)
     private String login;
 
     @NotEmpty
     @NotNull
     @Column(name = "password")
+    @Size(min = 6, max = 16)
     private String password;
 
     @NotEmpty
@@ -30,7 +33,7 @@ public class User extends BaseModel {
     @JoinTable(name = "user_role",
             joinColumns = { @JoinColumn(name = "user_id") },
             inverseJoinColumns = { @JoinColumn(name = "role_id") })
-    private Set<Role> roles = new HashSet<Role>();
+    private Set<Role> roles = new HashSet<>();
 
     public User() {
         super();
