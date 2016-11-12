@@ -39,15 +39,15 @@ public class RegistrationController {
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String registrationForm(@Valid @ModelAttribute("user") User user, BindingResult result){
-        Role userRole = new Role();
-        userRole.setRole(UserRoleType.USER);
-        user.getRoles().add(userRole);
         System.out.println("Inside");
         if(result.hasErrors()){
             System.out.println("ERRORS : !!!!!!!!!!");
             result.getFieldErrors().stream().forEach(System.out::println);
             return "registration";
         }
+        Role userRole = new Role();
+        userRole.setRole(UserRoleType.USER);
+        user.getRoles().add(userRole);
         System.out.println(user.getLogin() + "!!" + user.getPassword() + "!!" + user.getRoles().size());
         userService.add(user);
         System.out.println("after saving");
