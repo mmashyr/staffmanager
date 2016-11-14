@@ -3,6 +3,7 @@ package com.mmashyr.staffmanager.controller;
 import com.mmashyr.staffmanager.model.Role;
 import com.mmashyr.staffmanager.model.User;
 import com.mmashyr.staffmanager.model.UserRoleType;
+import com.mmashyr.staffmanager.services.RoleService;
 import com.mmashyr.staffmanager.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -28,6 +29,10 @@ public class RegistrationController {
     @Qualifier("userService")
     UserService userService;
 
+    @Autowired
+    @Qualifier("roleService")
+    RoleService roleService;
+
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registrationForm(Model model){
@@ -48,6 +53,8 @@ public class RegistrationController {
         Role userRole = new Role();
         userRole.setRole(UserRoleType.USER);
         user.getRoles().add(userRole);
+        roleService.add(userRole);
+
         System.out.println(user.getLogin() + "!!" + user.getPassword() + "!!" + user.getRoles().size());
         userService.add(user);
         System.out.println("after saving");
