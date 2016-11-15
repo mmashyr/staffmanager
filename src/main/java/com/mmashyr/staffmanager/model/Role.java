@@ -12,6 +12,7 @@ import java.util.Set;
 public class Role extends BaseModel {
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "type")
     private UserRoleType type;
 
     @ManyToMany(mappedBy = "roles")

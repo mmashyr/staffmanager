@@ -52,8 +52,9 @@ public class RegistrationController {
         }
         Role userRole = new Role();
         userRole.setRole(UserRoleType.USER);
-        user.getRoles().add(userRole);
         roleService.add(userRole);
+        user.getRoles().add(userRole);
+
 
         System.out.println(user.getLogin() + "!!" + user.getPassword() + "!!" + user.getRoles().size());
         userService.add(user);
