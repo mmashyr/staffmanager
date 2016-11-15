@@ -34,15 +34,11 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
+                .antMatchers("/registration").permitAll()
                 .antMatchers("/tasks/**").access("hasRole('ROLE_ADMIN')")
                 .antMatchers("/**").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
-                .antMatchers("/registration").permitAll()
                 .anyRequest().authenticated()
-                .and()
-                .formLogin()
-                .loginPage("/login")
-                .permitAll()
-                .and().formLogin().loginPage("/login")
+                .and().formLogin().loginPage("/login").permitAll()
                 .usernameParameter("login").passwordParameter("password")
                 .and().csrf();
 
