@@ -19,8 +19,8 @@ public class JpaUserDao extends JPAAbstractDao<User> implements UserDao {
 
     @Override
     public User findByLogin(String login) {
-        TypedQuery<User> query = createTypedQuery("SELECT u FROM User u");
-       // query.setParameter("login", login);
+        TypedQuery<User> query = createTypedQuery("SELECT u FROM User u WHERE u.login = :login");
+        query.setParameter("login", login);
 
         return query.getSingleResult();
     }
