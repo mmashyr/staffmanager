@@ -28,7 +28,7 @@ public class User extends BaseModel {
     @Size(min = 6, max = 16)
     private String password;
 
-    @NotEmpty
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role",
             joinColumns = { @JoinColumn(name = "user_id") },

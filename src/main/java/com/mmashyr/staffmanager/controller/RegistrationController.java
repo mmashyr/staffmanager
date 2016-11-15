@@ -60,6 +60,7 @@ public class RegistrationController {
             return "registration";
         }
 
+
         user.getRoles().add(roleService.findByType("USER"));
 
         userService.add(user);
