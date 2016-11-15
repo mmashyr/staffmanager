@@ -35,7 +35,7 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/tasks/**").access("hasRole('ROLE_ADMIN')")
-                .antMatchers("").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+                .antMatchers("/**").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
                 .antMatchers("/registration").permitAll()
                 .anyRequest().authenticated()
                 .and()
