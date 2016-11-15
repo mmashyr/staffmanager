@@ -14,10 +14,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.annotation.PostConstruct;
 import javax.validation.Valid;
-import javax.xml.bind.SchemaOutputResolver;
-import java.util.Arrays;
-import java.util.Collections;
 
 /**
  * Created by Mark on 12.11.2016.
@@ -33,9 +31,20 @@ public class RegistrationController {
     @Qualifier("roleService")
     RoleService roleService;
 
+    @PostConstruct
+    public void init() {
+        Role userRole = new Role();
+        userRole.setRole(UserRoleType.USER);
+        roleService.add(userRole);
+
+        Role adminRole = new Role();
+        adminRole.setRole(UserRoleType.ADMIN);
+        roleService.add(adminRole);
+    }
+
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
-    public String registrationForm(Model model){
+    public String registrationForm(Model model) {
         User user = new User();
         model.addAttribute("user", user);
 
@@ -43,24 +52,23 @@ public class RegistrationController {
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String registrationForm(@Valid @ModelAttribute("user") User user, BindingResult result){
+    public String registrationForm(@Valid @ModelAttribute("user") User user, BindingResult result) {
         System.out.println("Inside");
-        if(result.hasErrors()){
+        if (result.hasErrors()) {
             System.out.println("ERRORS : !!!!!!!!!!");
             result.getFieldErrors().stream().forEach(System.out::println);
             return "registration";
         }
-        Role userRole = new Role();
-        userRole.setRole(UserRoleType.USER);
-        user.getRoles().add(userRole);
-        roleService.add(userRole);
+
+        user.getRoles().add(roleService.findByType("USER"));
 
         userService.add(user);
-        System.out.println(userService.findByLogin("123456").getPassword());
-        System.out.println("after saving");
-        System.out.println(user.getLogin() + "!!" + user.getPassword() + "!!" + user.getRoles().size());
         return "index";
     }
 
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String loginPage() {
+        return "login";
+    }
 
 }
