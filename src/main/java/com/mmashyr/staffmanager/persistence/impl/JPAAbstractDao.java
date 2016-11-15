@@ -62,7 +62,7 @@ public abstract class JPAAbstractDao<T extends BaseModel> {
         em.remove(em.find(clazz, id));
     }
 
-    protected Query createQuery(String query){
+    protected TypedQuery<T> createTypedQuery(String query){
         return em.createQuery(query, clazz);
     }
 }
