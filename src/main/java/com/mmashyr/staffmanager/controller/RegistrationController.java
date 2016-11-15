@@ -55,11 +55,10 @@ public class RegistrationController {
         user.getRoles().add(userRole);
         roleService.add(userRole);
 
-
-        System.out.println(user.getLogin() + "!!" + user.getPassword() + "!!" + user.getRoles().size());
         userService.add(user);
         System.out.println(userService.findByLogin("123456").getPassword());
         System.out.println("after saving");
+        System.out.println(user.getLogin() + "!!" + user.getPassword() + "!!" + user.getRoles().size());
         return "index";
     }
 

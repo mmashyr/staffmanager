@@ -12,7 +12,6 @@ import java.util.Set;
 public class Role extends BaseModel {
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "type")
     private UserRoleType type;
 
     @ManyToMany(mappedBy = "roles")
@@ -30,7 +29,7 @@ public class Role extends BaseModel {
         return type;
     }
 
-    public void setRole(UserRoleType role) {
+    public void setRole(UserRoleType type) {
         this.type = type;
     }
 }

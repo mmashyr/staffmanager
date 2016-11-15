@@ -6,6 +6,7 @@ import com.mmashyr.staffmanager.persistence.RoleDao;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 /**
  * Created by Mark on 12.11.2016.
@@ -14,9 +15,9 @@ import javax.persistence.Query;
 public class JpaRoleDao extends  JPAAbstractDao<Role> implements RoleDao {
     @Override
     public Role findByType(String type) {
-        Query query = createTypedQuery("SELECT r FROM Role r WHERE u.type = :type)");
-        query.setParameter("type", type).setMaxResults(1);
+        TypedQuery<Role> query = createTypedQuery("SELECT r FROM Role r WHERE r.type = :type)");
+        query.setParameter("type", type);
 
-        return (Role) query.getSingleResult();
+        return query.getSingleResult();
     }
 }
