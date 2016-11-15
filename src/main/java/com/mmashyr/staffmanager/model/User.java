@@ -25,7 +25,7 @@ public class User extends BaseModel {
     @NotEmpty
     @NotNull
     @Column(name = "password")
-    @Size(min = 6, max = 16)
+    @Size(min = 6)
     private String password;
 
 
