@@ -2,6 +2,7 @@ package com.mmashyr.staffmanager.persistence.impl;
 
 import com.mmashyr.staffmanager.model.Role;
 import com.mmashyr.staffmanager.model.User;
+import com.mmashyr.staffmanager.model.UserRoleType;
 import com.mmashyr.staffmanager.persistence.RoleDao;
 import org.springframework.stereotype.Repository;
 
@@ -16,7 +17,7 @@ public class JpaRoleDao extends  JPAAbstractDao<Role> implements RoleDao {
     @Override
     public Role findByType(String type) {
         TypedQuery<Role> query = createTypedQuery("SELECT r FROM Role r WHERE r.type = :type)");
-        query.setParameter("type", type);
+        query.setParameter("type", UserRoleType.valueOf(type));
 
         return query.getSingleResult();
     }
