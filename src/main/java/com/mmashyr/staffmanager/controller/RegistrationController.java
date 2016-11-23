@@ -53,7 +53,7 @@ public class RegistrationController {
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String registrationForm(@RequestParam("chosenRole") String chosenRole, @Valid @ModelAttribute("user") User user, BindingResult result) {
         if (userService.findByLogin(user.getLogin()) != null) {
-            result.rejectValue("login", "This username already exists.");
+            result.rejectValue("login", "login.notUnique");
         }
         if (result.hasErrors()) {
             return "registration";
