@@ -2,7 +2,6 @@ package com.mmashyr.staffmanager.controller;
 
 import com.mmashyr.staffmanager.model.Role;
 import com.mmashyr.staffmanager.model.User;
-import com.mmashyr.staffmanager.model.UserRoleType;
 import com.mmashyr.staffmanager.services.RoleService;
 import com.mmashyr.staffmanager.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +12,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.annotation.PostConstruct;
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Mark on 12.11.2016.
@@ -31,15 +32,13 @@ public class RegistrationController {
     @Qualifier("roleService")
     RoleService roleService;
 
-    @PostConstruct
-    public void init() {
-        Role userRole = new Role();
-        userRole.setRole(UserRoleType.USER);
-        roleService.add(userRole);
+    @ModelAttribute
+    public void addRoleNamesToModel(Model model) {
+        List<Role> roles = roleService.getAll();
+        List<String> roleNames = new ArrayList<>();
+        roles.forEach(role -> roleNames.add(role.getType().name()));
 
-        Role adminRole = new Role();
-        adminRole.setRole(UserRoleType.ADMIN);
-        roleService.add(adminRole);
+        model.addAttribute("roleNames", roleNames);
     }
 
 
@@ -52,17 +51,11 @@ public class RegistrationController {
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String registrationForm(@Valid @ModelAttribute("user") User user, BindingResult result) {
-        System.out.println("Inside");
+    public String registrationForm(@Valid @ModelAttribute("user") User user, @RequestParam("chosenRole") String chosenRole, BindingResult result) {
         if (result.hasErrors()) {
-            System.out.println("ERRORS : !!!!!!!!!!");
-            result.getFieldErrors().stream().forEach(System.out::println);
             return "registration";
         }
-
-
-        user.getRoles().add(roleService.findByType("USER"));
-
+        user.getRoles().add(roleService.findByType(chosenRole));
         userService.add(user);
         return "index";
     }

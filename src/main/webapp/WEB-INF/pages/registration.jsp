@@ -29,6 +29,14 @@
     <form:input path="password"/>
     <form:errors path="password" cssClass="error"/><br>
 
+    <select name="chosenRole">
+        <c:forEach items="roleNames" var="roleName">
+            <option>
+                <c:out value="roleName"/>
+            </option>
+        </c:forEach>
+    </select>
+
     <input type="submit" value="Submit"/>
 </fieldset>
 </form:form>
