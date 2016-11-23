@@ -30,9 +30,9 @@
     <form:errors path="password" cssClass="error"/><br>
 
     <select name="chosenRole">
-        <c:forEach items="roleNames" var="roleName">
+        <c:forEach items="${roleNames}" var="roleName">
             <option>
-                <c:out value="roleName"/>
+                <c:out value="${roleName}"/>
             </option>
         </c:forEach>
     </select>
