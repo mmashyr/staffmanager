@@ -26,7 +26,7 @@
     <form:errors path="login" cssClass="error"/><br>
 
     <label for="password">Password: </label>
-    <form:input path="password"/>
+    <form:password path="password"/>
     <form:errors path="password" cssClass="error"/><br>
 
     <select name="chosenRole">
