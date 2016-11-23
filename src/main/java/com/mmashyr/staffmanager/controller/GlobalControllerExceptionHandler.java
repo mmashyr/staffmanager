@@ -24,7 +24,7 @@ public class GlobalControllerExceptionHandler {
     @ExceptionHandler(value = {RuntimeException.class})
     public ModelAndView errorHandler(HttpServletRequest req, Exception e) {
 
-        logger.error(e.toString() + "at" + req.getRequestURI() + e.getLocalizedMessage());
+        logger.error(e.toString() + "at" + req.getRequestURI() + e.getMessage());
 
         ModelAndView mav = new ModelAndView();
         mav.addObject("exception", e);
