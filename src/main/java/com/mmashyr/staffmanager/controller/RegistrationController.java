@@ -51,7 +51,7 @@ public class RegistrationController {
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String registrationForm(@Valid @ModelAttribute("user") User user, @RequestParam("chosenRole") String chosenRole, BindingResult result) {
+    public String registrationForm(@RequestParam("chosenRole") String chosenRole, @Valid @ModelAttribute("user") User user,  BindingResult result) {
         if (result.hasErrors()) {
             return "registration";
         }
