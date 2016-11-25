@@ -29,7 +29,7 @@ public class RestTaskController {
     @RequestMapping(value = "/tasks", method = RequestMethod.GET)
     private ResponseEntity<List<Task>> getAllTasks() {
         List<Task> tasks = taskService.getAll();
-        if(tasks == null){
+        if(tasks == null || tasks.isEmpty()){
             return new ResponseEntity<List<Task>>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<List<Task>>(tasks, HttpStatus.OK);

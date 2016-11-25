@@ -29,7 +29,7 @@ public class RestWorkerController {
     @RequestMapping(value = "/workers", method = RequestMethod.GET)
     private ResponseEntity<List<Worker>> getAllWorkers() {
         List<Worker> workers = workerService.getAll();
-        if(workers == null){
+        if( workers == null || workers.isEmpty()){
             return new ResponseEntity<List<Worker>>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<List<Worker>>(workers, HttpStatus.OK);
