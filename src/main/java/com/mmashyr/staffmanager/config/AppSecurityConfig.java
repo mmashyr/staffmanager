@@ -35,17 +35,19 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/rest/**").permitAll()
-                .antMatchers("/resources/**").permitAll()
-                .antMatchers("/registration").permitAll()
-                .antMatchers("/workers/edit/**", "/tasks/edit/**").hasRole("ADMIN")
-                .antMatchers(HttpMethod.DELETE, "/workers/*", "/tasks/*").hasRole("ADMIN")
-                .anyRequest().authenticated()
+                    .antMatchers("/rest/**").permitAll()
+                    .antMatchers("/resources/**").permitAll()
+                    .antMatchers("/registration").permitAll()
+                    .antMatchers("/workers/edit/**", "/tasks/edit/**").hasRole("ADMIN")
+                    .antMatchers(HttpMethod.DELETE, "/workers/*", "/tasks/*").hasRole("ADMIN")
+                    .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/login").permitAll()
-                .usernameParameter("login").passwordParameter("password")
-                .and().csrf();
+                    .loginPage("/login").permitAll()
+                    .usernameParameter("login").passwordParameter("password")
+                .and()
+                .csrf()
+                    .ignoringAntMatchers("/rest/**");
 
 
     }
