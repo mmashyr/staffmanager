@@ -1,5 +1,6 @@
 package com.mmashyr.staffmanager.model;
 
+import com.fasterxml.jackson.annotation.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -36,6 +37,8 @@ public class Task extends BaseModel {
     private Date deadline;
 
     @ManyToMany(mappedBy = "tasks", fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
     private List<Worker> workers = new ArrayList<>();
 
     public Task() {
@@ -66,6 +69,7 @@ public class Task extends BaseModel {
         return workers;
     }
 
+    @JsonProperty(value = "workerIds")
     public void setWorkers(List<Worker> workers) {
         this.workers = workers;
     }

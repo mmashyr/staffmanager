@@ -2,6 +2,8 @@ package com.mmashyr.staffmanager.model;
 
 
 
+import com.fasterxml.jackson.annotation.*;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -33,6 +35,8 @@ public class Worker extends BaseModel {
     @JoinTable(name = "worker_task",
             joinColumns = {@JoinColumn(name = "worker_id")},
             inverseJoinColumns = {@JoinColumn(name = "task_id")})
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
     private List<Task> tasks = new ArrayList<>();
 
     public Worker() {
@@ -63,6 +67,7 @@ public class Worker extends BaseModel {
         return tasks;
     }
 
+    @JsonProperty(value = "taskIds")
     public void setTasks(List<Task> tasks) {
         this.tasks = tasks;
     }
