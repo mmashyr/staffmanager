@@ -1,16 +1,15 @@
 package com.mmashyr.staffmanager.controller.rest;
 
 import com.mmashyr.staffmanager.model.Task;
+import com.mmashyr.staffmanager.model.Worker;
 import com.mmashyr.staffmanager.services.TaskService;
 import com.mmashyr.staffmanager.services.WorkerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -43,6 +42,25 @@ public class RestTaskController {
         return new ResponseEntity<Task>(task, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/tasks", method = RequestMethod.POST)
+    private void createTask(@Valid @RequestBody Task task){
+        taskService.add(task);
+    }
+
+    @RequestMapping(value = "/tasks/{taskId}/tasks/{workerId}", method = RequestMethod.PUT)
+    private ResponseEntity<Void> assignWorkerToTask(@PathVariable("taskId") long taskId,
+                                                 @PathVariable("workerId") long workerId) {
+
+        Task task = taskService.getById(taskId);
+        Worker worker = workerService.getById(workerId);
+        if (worker == null || task == null) {
+            return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+        }
+        task.getWorkers().add(worker);
+        taskService.update(task);
+
+        return new ResponseEntity<Void>(HttpStatus.CREATED);
+    }
 }
 
 
