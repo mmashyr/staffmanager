@@ -1,7 +1,6 @@
 package com.mmashyr.staffmanager.controller.rest;
 
 import com.mmashyr.staffmanager.model.Task;
-import com.mmashyr.staffmanager.model.Worker;
 import com.mmashyr.staffmanager.services.TaskService;
 import com.mmashyr.staffmanager.services.WorkerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,15 +28,16 @@ public class RestTaskController {
     @RequestMapping(value = "/tasks", method = RequestMethod.GET)
     private ResponseEntity<List<Task>> getAllTasks() {
         List<Task> tasks = taskService.getAll();
-        if(tasks == null || tasks.isEmpty()){
+        if (tasks == null || tasks.isEmpty()) {
             return new ResponseEntity<List<Task>>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<List<Task>>(tasks, HttpStatus.OK);
     }
+
     @RequestMapping(value = "/tasks/{id}", method = RequestMethod.GET)
-    private ResponseEntity<Task> getTaskById(@PathVariable("id") int id){
+    private ResponseEntity<Task> getTaskById(@PathVariable("id") int id) {
         Task task = taskService.getById(id);
-        if(task == null){
+        if (task == null) {
             return new ResponseEntity<Task>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<Task>(task, HttpStatus.OK);
