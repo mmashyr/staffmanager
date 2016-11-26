@@ -55,6 +55,9 @@ public class RestWorkerController {
         if (worker == null || task == null) {
             return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
         }
+        if(worker.getTasks().contains(task)){
+            return new ResponseEntity<Void>(HttpStatus.CREATED);
+        }
         worker.getTasks().add(task);
         workerService.update(worker);
 

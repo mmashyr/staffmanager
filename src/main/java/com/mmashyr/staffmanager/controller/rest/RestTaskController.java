@@ -47,7 +47,7 @@ public class RestTaskController {
         taskService.add(task);
     }
 
-    @RequestMapping(value = "/tasks/{taskId}/tasks/{workerId}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/tasks/{taskId}/workers/{workerId}", method = RequestMethod.PUT)
     private ResponseEntity<Void> assignWorkerToTask(@PathVariable("taskId") long taskId,
                                                  @PathVariable("workerId") long workerId) {
 
@@ -56,6 +56,10 @@ public class RestTaskController {
         if (worker == null || task == null) {
             return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
         }
+        if(task.getWorkers().contains(worker)){
+            return new ResponseEntity<Void>(HttpStatus.CREATED);
+        }
+
         task.getWorkers().add(worker);
         taskService.update(task);
 
